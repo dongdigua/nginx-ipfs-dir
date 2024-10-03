@@ -1,0 +1,24 @@
+#+TITLE: nginx-ipfs-dir: Share an IPFS-backed Directory
+
+requires [[https://github.com/openresty/lua-nginx-module][lua-nginx-module]]
+
+* =whitelist.lua=
+whitelists IPFS content so that it don't provide illegal content or consume lots of bandwidth.
+#+BEGIN_SRC nginx
+location /ipfs/ {
+         access_by_lua_file /path/to/whitelist.lua;
+         proxy_pass         http://127.0.0.1:8080;
+}
+#+END_SRC
+
+* =redirector.lua=
+generates a directory listing from =ipfs.map= and redirects filename request to ipfs path.
+it's recommended to install [[https://github.com/ipfs/ipfs-companion][IPFS Companion Browser Extension]] to make full use of it
+#+BEGIN_SRC nginx
+location /fs/ {
+         content_by_lua_file /path/to/redirector.lua;
+}
+#+END_SRC
+
+* ipfs.map
+format: =cid filename=
