@@ -11,14 +11,14 @@ location /ipfs/ {
 }
 #+END_SRC
 
-* =redirector.lua=
+* =ipfs_dir.lua=
 generates a directory listing from =ipfs.map= and redirects filename request to ipfs path.
 it's recommended to install [[https://github.com/ipfs/ipfs-companion][IPFS Companion Browser Extension]] to make full use of it
 #+BEGIN_SRC nginx
 location /fs/ {
-         content_by_lua_file /path/to/redirector.lua;
+         content_by_lua_file /path/to/ipfs_dir.lua;
 }
 #+END_SRC
 
-* ipfs.map
+* =ipfs.map=
 format: =cid filename=
